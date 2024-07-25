@@ -1,11 +1,13 @@
 package com.example.vogue_vault.entities;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class MyCart {
@@ -16,10 +18,42 @@ public class MyCart {
 	private int productId;
 	private String productName;
 	private String smallDesc;
-	private String mainDesc;
-	private String categoryName;
 	private int stock;
-	private int cartPrice;
+	private int cartQty;
+	private String imageUrl;
+	private double price;
+	private String selectedColor;
+	private String selectedSize;
+	
+	@ManyToOne
+	@JoinColumn(name = "users_userId")
+	@JsonBackReference
+	Users userCartList;
+
+	public Users getUserCartList() {
+		return userCartList;
+	}
+
+	public void setUserCartList(Users userCartList) {
+		this.userCartList = userCartList;
+	}
+
+
+	public String getSelectedColor() {
+		return selectedColor;
+	}
+
+	public void setSelectedColor(String selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	public String getSelectedSize() {
+		return selectedSize;
+	}
+
+	public void setSelectedSize(String selectedSize) {
+		this.selectedSize = selectedSize;
+	}
 
 	public int getId() {
 		return id;
@@ -53,36 +87,12 @@ public class MyCart {
 		this.smallDesc = smallDesc;
 	}
 
-	public String getMainDesc() {
-		return mainDesc;
-	}
-
-	public void setMainDesc(String mainDesc) {
-		this.mainDesc = mainDesc;
-	}
-
-	public String getCategoryName() {
-		return categoryName;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
 	public int getStock() {
 		return stock;
 	}
 
 	public void setStock(int stock) {
 		this.stock = stock;
-	}
-
-	public int getCartPrice() {
-		return cartPrice;
-	}
-
-	public void setCartPrice(int cartPrice) {
-		this.cartPrice = cartPrice;
 	}
 
 	public int getCartQty() {
@@ -101,38 +111,6 @@ public class MyCart {
 		this.imageUrl = imageUrl;
 	}
 
-	public boolean isFavorite() {
-		return isFavorite;
-	}
-
-	public void setFavorite(boolean isFavorite) {
-		this.isFavorite = isFavorite;
-	}
-
-	public int getRating() {
-		return rating;
-	}
-
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-
-	public List<String> getSizes() {
-		return sizes;
-	}
-
-	public void setSizes(List<String> sizes) {
-		this.sizes = sizes;
-	}
-
-	public List<String> getColors() {
-		return colors;
-	}
-
-	public void setColors(List<String> colors) {
-		this.colors = colors;
-	}
-
 	public double getPrice() {
 		return price;
 	}
@@ -140,13 +118,5 @@ public class MyCart {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-	private int cartQty;
-	private String imageUrl;
-	private boolean isFavorite;
-	private int rating;
-	private List<String> sizes;
-	private List<String> colors;
-	private double price;
 
 }
